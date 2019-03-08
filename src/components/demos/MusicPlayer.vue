@@ -18,13 +18,13 @@
               return {
                 tracks: [
                   {
-                    url: '/track1.mp3',
-                    art: '/track1_cover.jpg', 
+                    url: 'track1.mp3',
+                    art: 'track1_cover.jpg', 
                     title: 'A-M Classical Beethoven - F&uuml;r Elise'
                   },
                   {
-                    url: '/track2.mp3',
-                    art: '/track2_cover.jpg',  
+                    url: 'track2.mp3',
+                    art: 'track2_cover.jpg',  
                     title: 'Bon: Sonata in g minor, mvt. 1'
                   }
                 ],
