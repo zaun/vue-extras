@@ -1,10 +1,11 @@
 <template lang="pug">
   v-app
     v-toolbar(app clipped-left)
+      v-toolbar-side-icon(@click="showSidebar = !showSidebar")
       v-toolbar-title.headline.text-uppercase Vue Extras
       v-spacer
 
-    v-navigation-drawer(app clipped permanent)
+    v-navigation-drawer(v-model="showSidebar" app clipped width="200")
       v-list
         template(v-for="item in menu")
           v-divider(v-if="!item.title")
@@ -47,6 +48,7 @@ export interface MenuItem {
   },
 })
 export default class App extends Vue {
+  private showSidebar: boolean = true;
   private selected: string = 'getting_started';
   private menu: MenuItem[] = [{
     title: 'Getting Started',
