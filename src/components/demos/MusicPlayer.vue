@@ -79,12 +79,12 @@ export default class SheetMusicDemo extends Vue {
   private tab: number = 0;
   private tracks = [
     {
-      url: '/track1.mp3',
+      url: 'track1.mp3',
       art: 'https://m.media-amazon.com/images/I/71TJHr9h7iL._SS500_.jpg',
       title: 'A-M Classical Beethoven - Für Elise',
     },
     {
-      url: '/track2.mp3',
+      url: 'track2.mp3',
       art: 'https://i1.sndcdn.com/artworks-000120113151-sacbo4-t500x500.jpg',
       title: 'Bon: Sonata in g minor, mvt. 1',
     },
