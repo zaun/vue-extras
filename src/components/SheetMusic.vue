@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(ref="music")
+  div.sheetmusic(ref="music")
 </template>
 
 <script lang="ts">
@@ -9,16 +9,16 @@ import abcjs from 'abcjs';
 @Component
 export default class SheetMusic extends Vue {
   @Prop()
-  value!: string;
+  public value!: string;
 
   @Watch('value', { immediate: false })
-  onValueUpdate(n: string, o: string) {
+  private onValueUpdate(n: string, o: string) {
     if (n !== o) {
       abcjs.renderAbc(this.$refs.music, this.value, {});
     }
   }
 
-  mounted() {
+  private mounted() {
     if (!this.value) {
       return;
     }
@@ -28,4 +28,7 @@ export default class SheetMusic extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.sheetmusic {
+  overflow-x: scroll !important;
+}
 </style>

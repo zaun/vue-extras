@@ -30,7 +30,7 @@ import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Example extends Vue {
-  tab: number = 0
+  private tab: number = 0;
 }
 </script>
 

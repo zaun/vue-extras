@@ -41,20 +41,20 @@
 
 <script lang="ts">
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
-import Example from '@/components/Example.vue'
-import Markdown from '@/components/Markdown.vue'
-import SheetMusic from '@/components/SheetMusic.vue'
+import Example from '../Example.vue';
+import Markdown from '../Markdown.vue';
+import SheetMusic from '../SheetMusic.vue';
 
 @Component({
   components: {
     Example,
     Markdown,
-    SheetMusic
-  }
+    SheetMusic,
+  },
 })
 export default class SheetMusicDemo extends Vue {
-  tab: number = 0
-  tune: string = `X:296
+  private tab: number = 0;
+  private tune: string = `X:296
 T:Air De L'Opera Francoise. HSJJ.054
 T:Baa Baa Black Sheep. HSJJ.054
 T:Twinkle,Twinkle,Little Star. HSJJ.054

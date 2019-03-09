@@ -56,18 +56,18 @@
 
 <script lang="ts">
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
-import Example from '@/components/Example.vue'
-import Graph from '@/components/Graph.vue'
+import Example from '../Example.vue';
+import Graph from '../Graph.vue';
 
 @Component({
   components: {
     Example,
-    Graph
-  }
+    Graph,
+  },
 })
 export default class GraphDemo extends Vue {
-  tab: number = 0
-  chart1: string = `sequenceDiagram
+  private tab: number = 0;
+  private chart1: string = `sequenceDiagram
     Alice ->> Bob: Hello Bob, how are you?
     Bob-->>John: How about you John?
     Bob--x Alice: I am good thanks!
@@ -76,7 +76,7 @@ export default class GraphDemo extends Vue {
 
     Bob-->Alice: Checking with John...
     Alice->John: Yes... John, how are you?`;
-  chart2: string = `graph LR
+  private chart2: string = `graph LR
     A[Square Rect] -- Link text --> B((Circle))
     A --> C(Round Rect)
     B --> D{Rhombus}

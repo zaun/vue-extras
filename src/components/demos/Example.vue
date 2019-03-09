@@ -30,17 +30,17 @@
 
 <script lang="ts">
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
-import Example from '../Example.vue'
+import Example from '../Example.vue';
 
 @Component({
   components: {
-    Example
-  }
+    Example,
+  },
 })
 export default class SheetMusicDemo extends Vue {
-  tab: number = 0
-  code: string = ``;
-  template: string = ``;
+  private tab: number = 0;
+  private code: string = ``;
+  private template: string = ``;
 }
 </script>
 

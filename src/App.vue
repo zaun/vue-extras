@@ -24,11 +24,11 @@
 
 <script lang="ts">
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
-import GettingStarted from './components/demos/Main.vue'
-import ExampleDemo from './components/demos/Example.vue'
-import GraphDemo from './components/demos/Graph.vue'
-import MusicPlayerDemo from './components/demos/MusicPlayer.vue'
-import SheetMusicDemo from './components/demos/SheetMusic.vue'
+import GettingStarted from './components/demos/Main.vue';
+import ExampleDemo from './components/demos/Example.vue';
+import GraphDemo from './components/demos/Graph.vue';
+import MusicPlayerDemo from './components/demos/MusicPlayer.vue';
+import SheetMusicDemo from './components/demos/SheetMusic.vue';
 
 
 export interface MenuItem {
@@ -44,12 +44,11 @@ export interface MenuItem {
     GraphDemo,
     MusicPlayerDemo,
     SheetMusicDemo,
-  }
+  },
 })
 export default class App extends Vue {
-  selected:  string = 'getting_started';
-
-  menu: Array<MenuItem> = [{
+  private selected: string = 'getting_started';
+  private menu: MenuItem[] = [{
     title: 'Getting Started',
     icon: 'mdi-speedometer',
     value: 'getting_started',

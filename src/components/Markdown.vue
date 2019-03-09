@@ -9,26 +9,26 @@ import Markdown from 'markdown-it';
 @Component
 export default class SheetMusic extends Vue {
   @Prop()
-  value!: string;
+  public value!: string;
 
-  md: any = null;
-  content = '';
+  private md: any = null;
+  private content = '';
 
   @Watch('value', { immediate: false })
-  onValueUpdate(n: string, o: string) {
+  private onValueUpdate(n: string, o: string) {
     if (this.md !== null && n !== o) {
       this.content = this.md!.render(this.value);
     }
   }
 
-  created() {
+  private created() {
     this.md = new Markdown({
       html: false,
       break: false,
     });
   }
 
-  mounted() {
+  private mounted() {
     if (!this.value || this.md === null) {
       return;
     }
