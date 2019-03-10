@@ -16,19 +16,24 @@
     v-tab-item(:key="2")
       v-card
         v-card-text
-          pre
+          CodeHighlight(language="html")
             slot(name="template")
     v-tab-item(:key="3")
       v-card
         v-card-text
-          pre
+          CodeHighlight(language="javascript")
             slot(name="code")
 </template>
 
 <script lang="ts">
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
+import CodeHighlight from './CodeHighlight.vue';
 
-@Component
+@Component({
+  components: {
+    CodeHighlight,
+  },
+})
 export default class Example extends Vue {
   private tab: number = 0;
 }
