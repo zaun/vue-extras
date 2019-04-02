@@ -54,6 +54,8 @@ export default class Map extends Vue {
 
   private map: MK.Map | null = null;
 
+  private $mapkit: any;
+
   public setMapRegion(region: MapRegion) {
     if (!this.map) {
       return;
@@ -65,17 +67,17 @@ export default class Map extends Vue {
       longitudeDelta: 0,
     };
 
-    if (region.span.latitudeDeltaMiles) {
-      span.latitudeDelta = (region.span.latitudeDeltaMiles / EARTH_RADIUS) * (180 / Math.PI);
+    if ((region.span as MapCoordinateSpanMiles).latitudeDeltaMiles) {
+      span.latitudeDelta = ((region.span as MapCoordinateSpanMiles).latitudeDeltaMiles / EARTH_RADIUS) * (180 / Math.PI);
     } else {
-      span.latitudeDelta = region.span.latitudeDelta;
+      span.latitudeDelta = (region.span as MapCoordinateSpan).latitudeDelta;
     }
 
-    if (region.span.longitudeDeltaMiles) {
+    if ((region.span as MapCoordinateSpanMiles).longitudeDeltaMiles) {
       const r = EARTH_RADIUS * Math.cos(center.latitude * (Math.PI / 180));
-      span.longitudeDelta = (region.span.longitudeDeltaMiles / r) * (180 / Math.PI);
+      span.longitudeDelta = ((region.span as MapCoordinateSpanMiles).longitudeDeltaMiles / r) * (180 / Math.PI);
     } else {
-      span.longitudeDelta = region.span.longitudeDelta;
+      span.longitudeDelta = (region.span as MapCoordinateSpan).longitudeDelta;
     }
 
     const MKCenter: MK.Coordinate = new this.$mapkit.Coordinate(center.latitude, center.longitude);

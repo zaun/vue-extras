@@ -6,6 +6,26 @@
 <script lang="ts">
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
 
+interface Dailymotion {
+  player: any;
+}
+
+interface YouTube {
+  Player: any;
+}
+
+interface Vimeo {
+  Player: any;
+}
+
+declare global {
+  interface Window {
+    DM: Dailymotion;
+    YT: YouTube;
+    Vimeo: Vimeo;
+  }
+}
+
 @Component
 export default class VideoPlayer extends Vue {
   @Prop({ default: null })

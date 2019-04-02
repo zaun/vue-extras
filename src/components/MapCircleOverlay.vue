@@ -15,6 +15,8 @@ export default class MapCircleOverlay extends Vue {
   private wait: number = 100;
   private overlay: MK.CircleOverlay | null = null;
 
+  private $mapkit: any;
+
   private mounted() {
     if (this.map === null) {
       this.waitForMap();

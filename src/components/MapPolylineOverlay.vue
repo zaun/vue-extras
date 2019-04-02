@@ -4,14 +4,20 @@
 <script lang="ts">
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
 
+interface MapKit {
+  PolylineOverlay: any;
+}
+
 @Component
-export default class MapPolylineOverlay extends Vue {
+export default class MapPolylineOverlay extends (Vue) {
   @Prop({ default: () => [] })
   public points!: MK.Coordinate[];
 
   private map: MK.Map | null = null;
   private wait: number = 100;
   private overlay: MK.PolylineOverlay | null = null;
+
+  private $mapkit: any;
 
   private mounted() {
     if (this.map === null) {
