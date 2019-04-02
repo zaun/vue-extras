@@ -4,10 +4,10 @@
 
 <script lang="ts">
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
-import Markdown from 'markdown-it';
+import { Markdown as MD } from 'markdown-it';
 
 @Component
-export default class SheetMusic extends Vue {
+export default class Markdown extends Vue {
   @Prop()
   public value!: string;
 
@@ -22,7 +22,7 @@ export default class SheetMusic extends Vue {
   }
 
   private created() {
-    this.md = new Markdown({
+    this.md = new MD({
       html: false,
       break: false,
     });

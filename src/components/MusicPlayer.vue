@@ -46,6 +46,7 @@
 
 <script lang="ts">
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
+
 /* tslint:disable:no-var-requires */
 const noCoverArt = require('@/assets/noCoverArt.png');
 const playIcon = require('@/assets/play.png');
@@ -66,7 +67,6 @@ interface Track {
 interface TrackInternal extends Track {
   src: string;
 }
-
 
 @Component
 export default class AudioPlayer extends Vue {

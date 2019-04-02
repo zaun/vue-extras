@@ -3,7 +3,7 @@
     .display-1 MusicPlayer
     .body-1 Play a single track or a list of tracks. The player utilizes the HTML5 audio API, for best browser compatibility use mp3 or mp4 AAC.
 
-    .headline.mt-5 Usage
+    .headline.mt-5 Mini Player
     Example
       template(v-slot:output)
         MusicPlayer(:tracks="tracks")
@@ -33,7 +33,7 @@
           },
         &lt;/script&gt;      
 
-    .headline.mt-5 Example
+    .headline.mt-5 Small Player
     Example
       template(v-slot:output)
         MusicPlayer(:tracks="tracks" display="small" :playlist="true")
@@ -80,12 +80,12 @@ export default class SheetMusicDemo extends Vue {
   private tracks = [
     {
       url: 'track1.mp3',
-      art: 'https://m.media-amazon.com/images/I/71TJHr9h7iL._SS500_.jpg',
+      art: 'track1.jpg',
       title: 'A-M Classical Beethoven - Für Elise',
     },
     {
       url: 'track2.mp3',
-      art: 'https://i1.sndcdn.com/artworks-000120113151-sacbo4-t500x500.jpg',
+      art: 'track2.jpg',
       title: 'Bon: Sonata in g minor, mvt. 1',
     },
   ];
