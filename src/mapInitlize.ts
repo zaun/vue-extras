@@ -2,9 +2,11 @@ declare global {
   interface Window { mapkit: any; }
 }
 
+interface IPrototype { prototype: any; }
+
 const MapInitilize = {
 
-  loadScript(id: string, src: string, onLoad: () => {}) {
+  loadScript(id: string, src: string, onLoad: () => void) {
     let scriptEl = document.querySelector('#' + id);
     if (scriptEl != null) {
       return;
@@ -26,7 +28,7 @@ const MapInitilize = {
       window.mapkit.addEventListener('configuration-change', (event: any) => {
         switch (event.status) {
           case 'Initialized':
-            Vue.prototype.$mapkit = window.mapkit;
+            (Vue as IPrototype).prototype.$mapkit = window.mapkit;
             break;
           case 'Refreshed':
             break;

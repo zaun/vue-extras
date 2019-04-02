@@ -1,7 +1,27 @@
 <template lang="pug">
   .demo.pa-4
     .display-1 Map
-    .body-1 Show an Apple map.
+    .body-1 Display a map using Apple's MapKit.
+      | To ustilize the map, you must initilize the service to provide your autorization
+      | token. Please follow Apple's 
+      a(target="_blank" href="https://developer.apple.com/maps/mapkitjs/") documentation
+      | &nbsp;or&nbsp;
+      a(target="_blank" href="https://developer.apple.com/videos/play/wwdc2018/508") video
+      |.
+    CodeHighlight(language="javascript").
+      // Retrieve from a route
+      Vue.use(MapInitlize, (done) => {
+        fetch(`http://server.com/token`)
+        .then((res) => res.json())
+        .then((body) => {
+          done(body.token);
+        });
+      });
+
+      // Provide inline
+      Vue.use(MapInitlize, (done) => {
+        done('TOKEN HERE');
+      });
 
     .headline.mt-5 Basic Map
     Example
@@ -105,7 +125,7 @@
               };
             };
           },
-        &lt;/script&gt;   
+        &lt;/script&gt; 
 
     .headline.mt-5 Overlays
     Example
@@ -124,14 +144,48 @@
       template(v-slot:template).
         &lt;template&gt;
           &lt;Map :region=&quot;cupertinoRegion&quot; style=&quot;height: 450px;&quot;&gt;
+            &lt;MapCircleOverlay :coordinate=&quot;circleCenter&quot; radiusKM=&quot;circleRadius&quot; /&gt;
+            &lt;MapPolylineOverlay :points=&quot;line&quot; /&gt;
           &lt;/Map&gt;
         &lt;/template&gt;
       template(v-slot:code).
+        &lt;script&gt;
+          export default {
+            data () {
+              return {
+                cupertinoRegion: {
+                  center: {
+                    latitude: 37.3316850890998,
+                    longitude: -122.030067374026,
+                  },
+                  span: {
+                    latitudeDelta: 0.167647972,
+                    longitudeDelta: 0.354985255,
+                  },
+                },
+
+                circleCenter: {
+                  latitude: 37.3316850890998,
+                  longitude: -122.030067374026,
+                },
+
+                line: [{
+                  latitude: 37.3316850890998,
+                  longitude: -122.030067374026,
+                }, {
+                  latitude: 37.3,
+                  longitude: -122.0,
+                }]
+              };
+            };
+          },
+        &lt;/script&gt;
 
 </template>
 
 <script lang="ts">
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
+import CodeHighlight from '../CodeHighlight.vue';
 import Example from '../Example.vue';
 import Map from '../Map.vue';
 import MapCircleOverlay from '../MapCircleOverlay.vue';
@@ -139,6 +193,7 @@ import MapPolylineOverlay from '../MapPolylineOverlay.vue';
 
 @Component({
   components: {
+    CodeHighlight,
     Example,
     Map,
     MapCircleOverlay,
