@@ -12,7 +12,7 @@ Vue.use(MapInitlize, (done: (token: string) => {}) => {
       done(body.token);
     });
   } else {
-    done('eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ikg4N1FXNU02WjQifQ.eyJvcmlnaW4iOiJodHRwczovL3phdW4uZ2l0aHViLmlvLyIsImlhdCI6MTU1NDE3Mjc4NCwiZXhwIjoxNTU0MTczMTQ0LCJpc3MiOiI4QlUyWThDNUo3In0.DSY7r_dhsJltIf5dlVXchPOl8Vra6sCu5yQZgJDWpIPGBuv7BhD84aKXqvfxZqnfR7n0eRHAmQAAVdArLp0UeA');
+    done('eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ikg4N1FXNU02WjQifQ.eyJvcmlnaW4iOiJodHRwczovL3phdW4uZ2l0aHViLmlvIiwiaWF0IjoxNTU0MTgxMDQ5LCJleHAiOjE1NTQ3ODU4NDksImlzcyI6IjhCVTJZOEM1SjcifQ.y2mUCTt0qweMkKrX8Pu6LS9g20CDONWv9fVJR6kuINBVTgrbnmBRanno4VwoyQwOCEAfhCoM666YTjHXjYWz_w');
   }
 });
 
