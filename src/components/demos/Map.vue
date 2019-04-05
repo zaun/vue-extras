@@ -209,6 +209,44 @@
           },
         &lt;/script&gt;
 
+    .headline.mt-5 Annotaions
+    Example
+      template(v-slot:output)
+        Map.map-sample(:region="cupertinoRegion")
+          MapMarkerAnnotation(:coordinate="annotation" :glyph-text="glyphText" :title="title", :subtitle="subtitle")
+        v-layout(row wrap)
+          v-flex.pt-4.pr-3(xs4)
+            v-text-field(v-model="glyphText" label="Glyph" messages="Unicode and emoji work")
+          v-flex.pt-4.pr-3(xs4)
+            v-text-field(v-model="title" label="Title")
+          v-flex.pt-4.pr-3(xs4)
+            v-text-field(v-model="subtitle" label="Subtitle")
+      template(v-slot:template).
+        &lt;template&gt;
+          &lt;Map :region=&quot;cupertinoRegion&quot; style=&quot;height: 350px;&quot;&gt;
+            &lt;MapAnnotation :coordinate=&quot;circleCenter&quot; /&gt;
+          &lt;/Map&gt;
+      template(v-slot:code).
+        &lt;script&gt;
+          export default {
+            data () {
+              return {
+                cupertinoRegion: {
+                  center: {
+                    latitude: 37.3316850890998,
+                    longitude: -122.030067374026,
+                  },
+                  span: {
+                    latitudeDelta: 0.167647972,
+                    longitudeDelta: 0.354985255,
+                  },
+                },
+              };
+            };
+          },
+        &lt;/script&gt;   
+
+
     .headline.mt-5 GEO JSON
     Example
       template(v-slot:output)
@@ -250,6 +288,7 @@ import { find, map } from 'lodash';
 import CodeHighlight from '../CodeHighlight.vue';
 import Example from '../Example.vue';
 import Map from '../Map.vue';
+import MapMarkerAnnotation from '../MapMarkerAnnotation.vue';
 import MapCircleOverlay from '../MapCircleOverlay.vue';
 import MapPolylineOverlay from '../MapPolylineOverlay.vue';
 import MapPolygonOverlay from '../MapPolygonOverlay.vue';
@@ -261,6 +300,7 @@ import usStates from '@/assets/us_states.json';
     CodeHighlight,
     Example,
     Map,
+    MapMarkerAnnotation,
     MapCircleOverlay,
     MapPolylineOverlay,
     MapPolygonOverlay,
@@ -321,6 +361,17 @@ export default class MapDemo extends Vue {
   }];
 
   private circleRadius = 2;
+
+  /**
+   * Annotations
+   */
+  private annotation = {
+    latitude: 37.3316850890998,
+    longitude: -122.030067374026,
+  };
+  private glyphText = '';
+  private title = 'Title';
+  private subtitle = 'Subtitle';
 
   /**
    * GEO JSON

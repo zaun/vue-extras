@@ -28,6 +28,16 @@ declare namespace MK {
     points: Coordinate[];
   }
 
+  interface Annotation {
+    coordinate: Coordinate;
+  }
+
+  interface MarkerAnnotation extends Annotation {
+    glyphText: string;
+    title: string;
+    subtitle: string
+  }
+
   interface MapPoint {
     x: number;
     y: number;
@@ -114,6 +124,11 @@ declare namespace MK {
 
     addOverlay: (overlay: Overlay) => void;
     removeOverlay: (overlay: Overlay) => void;
+
+    addAnnotation: (annotation: Annotation) => void;
+    removeAnnotation: (annotation: Annotation) => void;
+
+    showItems: (item: Overlay | Annotation) => void,
 
     destroy: () => void;
   }
