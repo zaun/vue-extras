@@ -9,20 +9,21 @@
     v-tab(:key="3")
       v-icon mdi-language-javascript
       | Code
-    v-tab-item(:key="1")
-      v-card
-        v-card-text
-          slot(name="output")
-    v-tab-item(:key="2")
-      v-card
-        v-card-text
-          CodeHighlight(language="html")
-            slot(name="template")
-    v-tab-item(:key="3")
-      v-card
-        v-card-text
-          CodeHighlight(language="javascript")
-            slot(name="code")
+    v-tabs-items(touchless)
+      v-tab-item(:key="1")
+        v-card
+          v-card-text
+            slot(name="output")
+      v-tab-item(:key="2")
+        v-card
+          v-card-text
+            CodeHighlight(language="html")
+              slot(name="template")
+      v-tab-item(:key="3")
+        v-card
+          v-card-text
+            CodeHighlight(language="javascript")
+              slot(name="code")
 </template>
 
 <script lang="ts">

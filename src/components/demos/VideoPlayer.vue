@@ -2,6 +2,7 @@
   .demo.pa-4
     .display-1 VideoPlayer
     .body-1 Play various videos from around the web. Video's are responsive and will fill the full width of it's container while keeping its aspect ratio.
+    .body-1 Each service's javascript is lazy loaded when the 1st video is played. If you never play a Dailymotion video, then the javascript for the service is never loaded.
 
     .headline.mt-5 Vimeo Video
     Example

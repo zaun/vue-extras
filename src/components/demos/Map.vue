@@ -29,7 +29,7 @@
         Map.map-sample(:region="cupertinoRegion")
       template(v-slot:template).
         &lt;template&gt;
-          &lt;Map :region=&quot;cupertinoRegion&quot; style=&quot;height: 450px;&quot; /&gt;
+          &lt;Map :region=&quot;cupertinoRegion&quot; style=&quot;height: 350px;&quot; /&gt;
         &lt;/template&gt;
       template(v-slot:code).
         &lt;script&gt;
@@ -55,7 +55,7 @@
     Example
       template(v-slot:output)
         v-layout(row)
-          v-flex(xs9)
+          v-flex(xs12)
             Map.map-sample(
               :region="cupertinoRegion"
               :rotation="rotation"
@@ -68,19 +68,25 @@
               :isScrollEnabled="isScrollEnabled"
               :isZoomEnabled="isZoomEnabled"
             )
-          v-flex.pl-3(xs3)
-            v-checkbox(v-model="showsMapTypeControl" label="Show Map Type Control")
-            v-checkbox(v-model="showsZoomControl" label="Show Zoom Control")
-            v-checkbox(v-model="showsUserLocationControl" label="Show User Location Control")
-            v-checkbox(v-model="showsCompassControl" label="Show Compass Control" messages="Not visible if Rotation is disabled")
-            v-checkbox(v-model="showsScale" label="Show Scale")
+        v-layout(row wrap)
+          v-flex.pl-3(xs6 md3)
+            v-checkbox(v-model="showsMapTypeControl" label="Map Type Control")
+          v-flex.pl-3(xs6 md3)
+            v-checkbox(v-model="showsZoomControl" label="Zoom Control")
+          v-flex.pl-3(xs6 md3)
+            v-checkbox(v-model="showsUserLocationControl" label="User Location Control")
+          v-flex.pl-3(xs6 md3)
+            v-checkbox(v-model="showsCompassControl" label="Compass Control" messages="Not visible if Rotation is disabled")
+          v-flex.pl-3(xs6 md3)
+            v-checkbox(v-model="showsScale" label="Scale")
+          v-flex.pl-3(xs6 md3)
             v-slider(v-model="rotation" min="0" max="360" thumb-label="always" label="Rotation")
-        v-layout(row)
-          v-flex(4)
+        v-layout(row wrap)
+          v-flex.pl-3(xs12 md3)
             v-checkbox(v-model="isRotationEnabled" label="Is Rotation Available" messages="Enable / disable gestures to rotate the map")
-          v-flex(4)
+          v-flex.pl-3(xs12 md3)
             v-checkbox(v-model="isScrollEnabled" label="Is Scroll Enabled" messages="Enable / disable the mouse to move the map")
-          v-flex(4)
+          v-flex.pl-3(xs12 md3)
             v-checkbox(v-model="isZoomEnabled" label="Is Zoom Enabled" messages="Enable / disable gestures or the mouse to zoom the map")
       template(v-slot:template).
         &lt;template&gt;
@@ -94,7 +100,7 @@
                :isRotationEnabled="isRotationEnabled&quot;
                :isScrollEnabled="isScrollEnabled&quot;
                :isZoomEnabled="isZoomEnabled&quot;
-               style=&quot;height: 450px;&quot; /&gt;
+               style=&quot;height: 350px;&quot; /&gt;
         &lt;/template&gt;
       template(v-slot:code).
         &lt;script&gt;
@@ -130,22 +136,41 @@
     .headline.mt-5 Overlays
     Example
       template(v-slot:output)
-        v-layout(row)
-          v-flex(xs9)
-            Map.map-sample(:region="cupertinoRegion")
-              MapCircleOverlay(v-if="showCircleOverlay" :coordinate="circleCenter" :radiusKM="circleRadius")
-              MapPolylineOverlay(v-if="showPolylineOverlay" :points="line")
-          v-flex.pl-3(xs3)
-            v-checkbox(v-model="showCircleOverlay" label="Show Circle Overlay")
+        Map.map-sample(
+          :region="cupertinoRegion"
+          :isRotationEnabled="false"
+          :isScrollEnabled="false"
+          :isZoomEnabled="false"
+          :showsZoomControl="false"
+          :showsMapTypeControl="false"
+        )
+          MapCircleOverlay(v-if="overlayType == 'Circle'" :coordinate="circleCenter" :radiusKM="circleRadius")
+          MapPolylineOverlay(v-if="overlayType == 'Polyline'" :points="poly")
+          MapPolygonOverlay(v-if="overlayType == 'Polygon'" :points="poly")
+        v-layout(row wrap)
+          v-flex.pt-4.pr-3(xs6)
+            v-select(:items="overlayTypes" v-model="overlayType" label="Type")
+          v-flex.pt-4(xs6 v-if="overlayType == 'Circle'")
             v-slider(v-model="circleRadius" min="1" max="5" thumb-label="always" step="0.1" label="Radius (km)")
-            v-checkbox(v-model="showPolylineOverlay" label="Show Polyline Overlay")
-            v-slider(v-model="line[1].latitude" min="37.25" max="37.41" thumb-label="always" step="0.01")
-            v-slider(v-model="line[1].longitude" min="-122.21" max="-121.85" thumb-label="always" step="0.01")
+        v-layout(row wrap)
+          v-flex.pt-4.pr-3(xs6 v-if="overlayType != 'Circle'")
+            v-slider(v-model="poly[0].latitude" min="37.25" max="37.41" thumb-label="always" thumb-size="45" step="0.01" label="P1.lat")
+          v-flex.pt-4.pr-3(xs6 v-if="overlayType != 'Circle'")
+            v-slider(v-model="poly[0].longitude" min="-122.21" max="-121.85" thumb-label="always" thumb-size="45" step="0.01" label="P1.lon")
+          v-flex.pt-4.pr-3(xs6 v-if="overlayType != 'Circle'")
+            v-slider(v-model="poly[1].latitude" min="37.25" max="37.41" thumb-label="always" thumb-size="45" step="0.01" label="P2.lat")
+          v-flex.pt-4.pr-3(xs6 v-if="overlayType != 'Circle'")
+            v-slider(v-model="poly[1].longitude" min="-122.21" max="-121.85" thumb-label="always" thumb-size="45" step="0.01" label="P2.lon")
+          v-flex.pt-4.pr-3(xs6 v-if="overlayType != 'Circle'")
+            v-slider(v-model="poly[2].latitude" min="37.25" max="37.41" thumb-label="always" thumb-size="45" step="0.01" label="P3.lat")
+          v-flex.pt-4.pr-3(xs6 v-if="overlayType != 'Circle'")
+            v-slider(v-model="poly[2].longitude" min="-122.21" max="-121.85" thumb-label="always" thumb-size="45" step="0.01" label="P3.lon")
       template(v-slot:template).
         &lt;template&gt;
-          &lt;Map :region=&quot;cupertinoRegion&quot; style=&quot;height: 450px;&quot;&gt;
+          &lt;Map :region=&quot;cupertinoRegion&quot; style=&quot;height: 350px;&quot;&gt;
             &lt;MapCircleOverlay :coordinate=&quot;circleCenter&quot; radiusKM=&quot;circleRadius&quot; /&gt;
-            &lt;MapPolylineOverlay :points=&quot;line&quot; /&gt;
+            &lt;MapPolylineOverlay :points=&quot;poly&quot; /&gt;
+            &lt;MapPolygonOverlay :points=&quot;poly&quot; /&gt;
           &lt;/Map&gt;
         &lt;/template&gt;
       template(v-slot:code).
@@ -169,27 +194,67 @@
                   longitude: -122.030067374026,
                 },
 
-                line: [{
-                  latitude: 37.3316850890998,
-                  longitude: -122.030067374026,
+                poly: [{
+                  latitude: 37.39,
+                  longitude: -122.12,
                 }, {
-                  latitude: 37.3,
-                  longitude: -122.0,
+                  latitude: 37.33,
+                  longitude: -121.92,
+                }, {
+                  latitude: 37.27,
+                  longitude: -122.12,
                 }]
               };
             };
           },
         &lt;/script&gt;
 
+    .headline.mt-5 GEO JSON
+    Example
+      template(v-slot:output)
+        Map.map-sample(:region="usRegion")
+          MapGeoJSON(:geo="state(selectedState)")
+        v-select(:items="stateNames" v-model="selectedState" label="Type")
+      template(v-slot:template).
+        &lt;template&gt;
+          &lt;Map :region=&quot;usRegion&quot; style=&quot;height: 350px;&quot;&gt;
+            &lt;MapGeoJSON :geo=&quot;data&quot; /&gt;
+          &lt;/Map&gt;
+        &lt;/template&gt;
+      template(v-slot:code).
+        &lt;script&gt;
+          export default {
+            data () {
+              return {
+                usRegion = {
+                  center: {
+                    latitude: 39.8283,
+                    longitude: -98.5795,
+                  },
+                  span: {
+                    latitudeDelta: 25,
+                    longitudeDelta: 60,
+                  },
+                },
+              };
+            };
+          },
+        &lt;/script&gt;   
+
+
 </template>
 
 <script lang="ts">
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
+import { find, map } from 'lodash';
 import CodeHighlight from '../CodeHighlight.vue';
 import Example from '../Example.vue';
 import Map from '../Map.vue';
 import MapCircleOverlay from '../MapCircleOverlay.vue';
 import MapPolylineOverlay from '../MapPolylineOverlay.vue';
+import MapPolygonOverlay from '../MapPolygonOverlay.vue';
+import MapGeoJSON from '../MapGeoJSON.vue';
+import usStates from '@/assets/us_states.json';
 
 @Component({
   components: {
@@ -198,6 +263,8 @@ import MapPolylineOverlay from '../MapPolylineOverlay.vue';
     Map,
     MapCircleOverlay,
     MapPolylineOverlay,
+    MapPolygonOverlay,
+    MapGeoJSON,
   },
 })
 export default class MapDemo extends Vue {
@@ -231,26 +298,62 @@ export default class MapDemo extends Vue {
   /**
    * Overlay Demo
    */
+  private overlayTypes = [
+    'Circle',
+    'Polyline',
+    'Polygon',
+  ];
+  private overlayType = 'Circle';
+
   private circleCenter = {
     latitude: 37.3316850890998,
     longitude: -122.030067374026,
   };
-  private line = [{
-    latitude: 37.3316850890998,
-    longitude: -122.030067374026,
+  private poly = [{
+    latitude: 37.39,
+    longitude: -122.12,
   }, {
-    latitude: 37.3,
-    longitude: -122.0,
+    latitude: 37.33,
+    longitude: -121.92,
+  }, {
+    latitude: 37.27,
+    longitude: -122.12,
   }];
 
-  private showCircleOverlay = true;
   private circleRadius = 2;
-  private showPolylineOverlay = true;
+
+  /**
+   * GEO JSON
+   */
+  private usRegion = {
+    center: {
+      latitude: 39.8283,
+      longitude: -98.5795,
+    },
+    span: {
+      latitudeDelta: 25,
+      longitudeDelta: 60,
+    },
+  };
+
+  private states = usStates;
+  private selectedState = 'Maine';
+  private get stateNames() {
+    return map(this.states.features, (f) => {
+      return f.properties.NAME;
+    }).sort();
+  }
+
+  private state(name: string) {
+    return find(this.states.features, (f) => {
+      return f.properties.NAME === name;
+    });
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .map-sample {
-  height: 450px;
+  height: 350px;
 }
 </style>

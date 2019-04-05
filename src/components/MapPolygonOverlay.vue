@@ -5,13 +5,13 @@
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
 
 @Component
-export default class MapPolylineOverlay extends (Vue) {
+export default class MapPolygonOverlay extends (Vue) {
   @Prop({ default: () => [] })
   public points!: MK.Coordinate[];
 
   private map: MK.Map | null = null;
   private wait: number = 100;
-  private overlay: MK.PolylineOverlay | null = null;
+  private overlay: MK.PolygonOverlay | null = null;
 
   private $mapkit: any;
 
@@ -34,9 +34,9 @@ export default class MapPolylineOverlay extends (Vue) {
       throw new Error('Map should exist');
     }
 
-    this.overlay = new this.$mapkit.PolylineOverlay(this.points.map((p) => {
+    this.overlay = new this.$mapkit.PolygonOverlay(this.points.map((p) => {
       return new this.$mapkit.Coordinate(p.latitude, p.longitude);
-    })) as MK.PolylineOverlay;
+    })) as MK.PolygonOverlay;
     this.map.addOverlay(this.overlay);
   }
 

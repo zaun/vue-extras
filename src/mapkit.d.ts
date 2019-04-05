@@ -2,17 +2,13 @@
  * Apple MapKitJS Types
  */
 
-declare module MK {
-  interface Style {
-
-  }
-
+declare namespace MK {
   interface Overlay {
     data: object;
     visible: boolean;
     enabled: boolean;
     selected: boolean;
-    style: Style;
+    style: object;
     map: Map;
 
     addEventListener: (type: string, listener: () => void, data?: object) => void;
@@ -25,6 +21,10 @@ declare module MK {
   }
 
   interface PolylineOverlay extends Overlay {
+    points: Coordinate[];
+  }
+
+  interface PolygonOverlay extends Overlay {
     points: Coordinate[];
   }
 
@@ -116,5 +116,10 @@ declare module MK {
     removeOverlay: (overlay: Overlay) => void;
 
     destroy: () => void;
+  }
+
+  interface GeoJSONResult {
+    items: object[];
+    getFlattenedItemList: () => object[];
   }
 }

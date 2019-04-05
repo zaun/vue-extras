@@ -1,5 +1,9 @@
 export { default as Example } from 'components/Example.vue';
 export { default as Graph } from 'components/Graph.vue';
+export { default as Map } from 'components/Map.vue';
+export { default as MapCircleOverlay } from 'components/MapCircleOverlay.vue';
+export { default as MapPolylineOverlay } from 'components/MapPolylineOverlay.vue';
+export { default as MapPolygonOverlay } from 'components/MapPolygonOverlay.vue';
 export { default as MusicPlayer } from 'components/MusicPlayer.vue';
 export { default as SheetMusic } from 'components/SheetMusic.vue';
 export { default as VideoPlayer } from 'components/VideoPlayer.vue';
