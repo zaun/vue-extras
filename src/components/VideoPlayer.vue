@@ -10,6 +10,10 @@ interface Dailymotion {
   player: any;
 }
 
+interface Twitch {
+  Embed: any;
+}
+
 interface YouTube {
   Player: any;
 }
@@ -21,6 +25,7 @@ interface Vimeo {
 declare global {
   interface Window {
     DM: Dailymotion;
+    Twitch: Twitch;
     YT: YouTube;
     Vimeo: Vimeo;
   }
@@ -31,15 +36,19 @@ export default class VideoPlayer extends Vue {
   @Prop({ default: null })
   public dailymotion!: string;
   @Prop({ default: null })
+  public twitch!: string;
+  @Prop({ default: null })
   public vimeo!: string;
   @Prop({ default: null })
   public youtube!: string;
 
+  private embed!: any;
   private player!: any;
   private lastWidth: number = 0;
   private waitForLoad: number = 1000;
 
   private dmLoaded: boolean = false;
+  private ttvLoaded: boolean = false;
   private vimLoaded: boolean = false;
   private ytLoaded: boolean = false;
 
@@ -49,6 +58,9 @@ export default class VideoPlayer extends Vue {
 
   private destroyed() {
     window.removeEventListener('resize', this.resizeIframe);
+    if (this.embed && this.embed.destroy) {
+      this.embed.destroy();
+    }
   }
 
   private mounted() {
@@ -63,6 +75,10 @@ export default class VideoPlayer extends Vue {
     if (this.youtube !== null) {
       this.loadScript('youtube-script', 'https://www.youtube.com/iframe_api');
       this.checkForYoutube();
+    }
+    if (this.twitch !== null) {
+      this.loadScript('twitch-script', 'https://embed.twitch.tv/embed/v1.js');
+      setTimeout(this.checkForTwitch, 100);
     }
   }
 
@@ -79,6 +95,21 @@ export default class VideoPlayer extends Vue {
     } else {
       this.waitForLoad -= 1;
       setTimeout(this.checkForDailymotion);
+    }
+  }
+
+  private checkForTwitch() {
+    if (this.ttvLoaded || this.waitForLoad === 0) {
+      this.resizeIframe();
+      return;
+    }
+
+    if (window.Twitch && window.Twitch.Embed) {
+      this.ttvLoaded = true;
+      this.onReadyTwitch();
+    } else {
+      this.waitForLoad -= 1;
+      setTimeout(this.onReadyTwitch);
     }
   }
 
@@ -139,6 +170,18 @@ export default class VideoPlayer extends Vue {
   private onReadyDailymotion() {
     this.player = new window.DM.player(this.$refs.video, {
       video: this.dailymotion,
+    });
+    this.resizeIframe();
+  }
+
+  private onReadyTwitch() {
+    this.embed = new window.Twitch.Embed(this.$refs.video, {
+      video: this.twitch,
+    });
+    this.embed.addEventListener(window.Twitch.Embed.VIDEO_READY, () => {
+      this.player = this.embed.getPlayer();
+      this.player.pause();
+      this.resizeIframe();
     });
     this.resizeIframe();
   }

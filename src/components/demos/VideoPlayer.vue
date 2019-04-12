@@ -24,6 +24,16 @@
         &lt;/template&gt;
       template(v-slot:code).
 
+    .headline.mt-5 Twitch TV
+    Example
+      template(v-slot:output)
+        VideoPlayer(twitch="404080874")
+      template(v-slot:template).
+        &lt;template&gt;
+          &lt;VideoPlayer twitch=&quot;404080874&quot; /&gt;
+        &lt;/template&gt;
+      template(v-slot:code).
+
     .headline.mt-5 Dailymotion Video
     Example
       template(v-slot:output)
