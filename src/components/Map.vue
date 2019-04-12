@@ -1,6 +1,8 @@
 <template lang="pug">
-  div(ref="map")
+  div(v-if="!noMap" ref="map")
     slot
+  div.map-container(v-else)
+    .error-message No Map Support
 </template>
 
 <script lang="ts">
@@ -52,6 +54,7 @@ export default class Map extends Vue {
   @Prop({ default: 0 })
   public rotation!: number;
 
+  private noMap: boolean = false;
   private map: MK.Map | null = null;
 
   private $mapkit: any;
@@ -68,7 +71,8 @@ export default class Map extends Vue {
     };
 
     if ((region.span as MapCoordinateSpanMiles).latitudeDeltaMiles) {
-      span.latitudeDelta = ((region.span as MapCoordinateSpanMiles).latitudeDeltaMiles / EARTH_RADIUS) * (180 / Math.PI);
+      const spanMiles: MapCoordinateSpanMiles = region.span as MapCoordinateSpanMiles;
+      span.latitudeDelta = (spanMiles.latitudeDeltaMiles / EARTH_RADIUS) * (180 / Math.PI);
     } else {
       span.latitudeDelta = (region.span as MapCoordinateSpan).latitudeDelta;
     }
@@ -92,6 +96,11 @@ export default class Map extends Vue {
   }
 
   private mounted() {
+    if (!this.$mapkit) {
+      this.noMap = true;
+      return;
+    }
+
     this.map = new this.$mapkit.Map(this.$refs.map) as MK.Map;
     if (this.region) {
       this.setMapRegion(this.region);
@@ -196,4 +205,18 @@ export default class Map extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.map-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  cursor: default;
+  .error-message {
+    position: absolute;
+    font-size: 2em;
+    text-align: center;
+    width: 100%;
+    top: calc(50% - 1em);
+    opacity: 0.5;
+  }
+}
 </style>

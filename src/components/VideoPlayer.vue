@@ -112,6 +112,7 @@ export default class VideoPlayer extends Vue {
     }
   }
 
+  // tslint:disable no-bitwise
   private generateUUID() {
     let d = new Date().getTime();
     const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -121,6 +122,7 @@ export default class VideoPlayer extends Vue {
     });
     return uuid;
   }
+  // txlint-enable
 
   private loadScript(id: string, src: string) {
     let scriptEl = document.querySelector('#' + id);

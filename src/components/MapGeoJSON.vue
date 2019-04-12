@@ -11,6 +11,7 @@ interface MapKit {
 
 @Component
 export default class MapGeoJSON extends (Vue) {
+  // tslint:disable-next-line no-empty
   @Prop({ default: () => {} })
   public geo!: object;
 

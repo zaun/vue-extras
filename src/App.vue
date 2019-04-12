@@ -20,7 +20,7 @@
       ExampleDemo(v-if="selected == 'example'")
       GraphDemo(v-if="selected == 'graph'")
       MapDemo(v-if="selected == 'map'")
-      MusicPlayerDemo(v-if="selected == 'music_player'")
+      AudioPlayerDemo(v-if="selected == 'music_player'")
       SheetMusicDemo(v-if="selected == 'sheet_music'")
       VideoPlayerDemo(v-if="selected == 'video_player'")
 </template>
@@ -31,7 +31,7 @@ import GettingStarted from './components/demos/Main.vue';
 import ExampleDemo from './components/demos/Example.vue';
 import GraphDemo from './components/demos/Graph.vue';
 import MapDemo from './components/demos/Map.vue';
-import MusicPlayerDemo from './components/demos/MusicPlayer.vue';
+import AudioPlayerDemo from './components/demos/AudioPlayer.vue';
 import SheetMusicDemo from './components/demos/SheetMusic.vue';
 import VideoPlayerDemo from './components/demos/VideoPlayer.vue';
 
@@ -48,7 +48,7 @@ export interface MenuItem {
     ExampleDemo,
     GraphDemo,
     MapDemo,
-    MusicPlayerDemo,
+    AudioPlayerDemo,
     SheetMusicDemo,
     VideoPlayerDemo,
   },
